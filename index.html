@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Content | Construction Industry Writing</title>
+    <meta name="description" content="Professional writing for the construction industry. Trade articles, case studies, RFPs, and ghostwriting by a former contractor who understands the business.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1a1a;
+            --paper: #f8f6f3;
+            --rust: #c45a32;
+            --slate: #4a5568;
+            --concrete: #e8e4df;
+            --steel: #2d3748;
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'Instrument Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        /* === NAV === */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--paper);
+            border-bottom: 1px solid var(--concrete);
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            color: var(--rust);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rust);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: linear-gradient(135deg, transparent 40%, var(--concrete) 40%);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--rust);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--slate);
+            max-width: 550px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--ink);
+            color: var(--paper);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.3s forwards;
+        }
+
+        .btn:hover {
+            background: var(--rust);
+            transform: translateY(-2px);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* === SECTIONS === */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--rust);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-intro {
+            font-size: 1.1rem;
+            color: var(--slate);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* === SERVICES === */
+        #services {
+            background: var(--steel);
+            color: var(--paper);
+        }
+
+        #services .section-label {
+            color: var(--rust);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2.5rem 2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--rust);
+            transition: height 0.3s ease;
+        }
+
+        .service-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-4px);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--rust);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* === ABOUT === */
+        #about {
+            background: var(--paper);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid var(--rust);
+            z-index: 0;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 1;
+            filter: grayscale(20%);
+        }
+
+        .about-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--concrete);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            font-size: 4rem;
+        }
+
+        .about-content h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--slate);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p:first-of-type {
+            font-size: 1.15rem;
+            color: var(--ink);
+        }
+
+        /* === CLIENTS === */
+        #clients {
+            background: var(--concrete);
+        }
+
+        .clients-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem 4rem;
+            margin-top: 3rem;
+        }
+
+        .client-logo {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--slate);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            text-align: center;
+        }
+
+        .client-logo:hover {
+            opacity: 1;
+        }
+
+        /* === TESTIMONIALS === */
+        #testimonials {
+            background: var(--paper);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--rust);
+            opacity: 0.15;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--slate);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--concrete);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--slate);
+        }
+
+        .testimonial-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .testimonial-info p {
+            font-size: 0.85rem;
+            color: var(--slate);
+        }
+
+        /* === CONTACT === */
+        #contact {
+            background: var(--steel);
+            color: var(--paper);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-content h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-content p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--paper);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--rust);
+        }
+
+        .contact-socials {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-socials a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .contact-socials a:hover {
+            color: var(--rust);
+        }
+
+        .contact-cta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .contact-cta .btn {
+            background: var(--rust);
+            opacity: 1;
+            animation: none;
+        }
+
+        .contact-cta .btn:hover {
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        .contact-cta p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--ink);
+            color: rgba(255,255,255,0.5);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--rust);
+            text-decoration: none;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--paper);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--concrete);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#" class="logo">Custom<span>Content</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Construction Industry Writing</p>
+            <h1>Where Construction Meets Communication</h1>
+            <p class="hero-subtitle">Technical writing by someone who's swung a hammer. We turn complex projects into clear, compelling stories that build trust and win work.</p>
+            <a href="#contact" class="btn">
+                Get Started
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-inner">
+            <p class="section-label">Services</p>
+            <h2 class="section-title">Writing Built for the Industry</h2>
+            <p class="section-intro" style="color: rgba(255,255,255,0.7);">Construction-focused content that turns complex projects into clear, credible communication. Trusted by editors, clients, and industry peers.</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📐</div>
+                    <h3>Trade & Technical Writing</h3>
+                    <p>Publication-ready articles for trade magazines, journals, and association media. We translate project details, methods, and materials into compelling stories that showcase expertise and results.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Real Estate & Architectural Content</h3>
+                    <p>Narratives that connect design, community, and investment. From project stories to investor summaries, we create content that communicates vision and value.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Corporate & B2B Content</h3>
+                    <p>Capability statements, case studies, RFP narratives, and sustainability reports that turn technical knowledge into clear documentation that wins work.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌱</div>
+                    <h3>Green Building & Sustainability</h3>
+                    <p>Sustainability storytelling backed by industry experience. Grant proposals, ESG reports, and educational resources that communicate innovation and impact.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Building Tech & Product Writing</h3>
+                    <p>White papers, product guides, and technical blogs for manufacturers, suppliers, and SaaS firms—delivering clarity without losing complexity.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✍️</div>
+                    <h3>Ghostwriting for Leaders</h3>
+                    <p>Thought leadership for executives in construction, architecture, and building science. Articles, white papers, and presentations that elevate professional profiles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-placeholder">👷</div>
+                </div>
+                <div class="about-content">
+                    <p class="section-label">About</p>
+                    <h2>A contractor who traded his toolbelt for a keyboard.</h2>
+                    <p>After two decades in residential construction and renovation, I understand the language of the industry—because I've lived it.</p>
+                    <p>Now I combine that hands-on experience with professional writing to help construction businesses and industry publications stand out online and in print.</p>
+                    <p>My style is clear, compelling, and grounded in real-world experience—shaped by years of business ownership, thorough research, and a deep respect for the power of well-chosen words.</p>
+                    <p>Whether you need web copy, case studies, project spotlights, RFPs, white papers, or publication-ready articles, I help your organization communicate with authority and precision.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients">
+        <div class="section-inner">
+            <p class="section-label" style="text-align: center;">Clients</p>
+            <h2 class="section-title" style="text-align: center;">Trusted By</h2>
+            <div class="clients-grid">
+                <div class="client-logo">Emerge2Digital</div>
+                <div class="client-logo">Piling Canada</div>
+                <div class="client-logo">StratDev Digital</div>
+                <div class="client-logo">Green Building Canada</div>
+                <div class="client-logo">The Fenton Group</div>
+                <div class="client-logo">SmartrLiving</div>
+                <div class="client-logo">MCAS</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="section-inner">
+            <p class="section-label">Testimonials</p>
+            <h2 class="section-title">What Clients Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">We needed a writer who could see the bigger picture and create content that actually moved the needle. He delivered—bringing clarity, consistency, and measurable results. He's helped drive a 213% increase in organic traffic, a 900% boost in conversions, and a 2x jump in average deal size. More than a writer, he's a partner in growth.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JC</div>
+                        <div class="testimonial-info">
+                            <h4>Jordan Calderon</h4>
+                            <p>Founder & President, StratDev</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Simon is a highly skilled technical writer. I commissioned him to write a high-level piece for a client organization, for which we had scant details to get started. His final piece exceeded my client's expectations, and he delivered in advance of the agreed deadline.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">LA</div>
+                        <div class="testimonial-info">
+                            <h4>Lindsay Adams</h4>
+                            <p>Managing Editor, Lester Communications</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Simon has been writing articles for Emerge2 since early 2024. His personal experience and writing skills come through in every engaging article. He works well within our timeline and delivers high-quality content that aligns with the tone and goals of our publication. His communication is top-notch.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CA</div>
+                        <div class="testimonial-info">
+                            <h4>Catherine Adcock</h4>
+                            <p>Marketing Professional, Emerge2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Simon wrote articles for our real estate blog at LoyalHomes.ca. I found his writing to be of high quality. He was fantastic to work with, always delivering on time. Highly recommend.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CF</div>
+                        <div class="testimonial-info">
+                            <h4>Chris Fenton</h4>
+                            <p>CEO, The Fenton Group</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-inner">
+            <div class="contact-grid">
+                <div class="contact-content">
+                    <p class="section-label">Contact</p>
+                    <h2>Let's Build Something</h2>
+                    <p>Ready to bring clarity and credibility to your construction communication? Reach out for a quote or to discuss your next article, proposal, or project story.</p>
+                    <a href="mailto:simon@custom-content.co" class="contact-link">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        simon@custom-content.co
+                    </a>
+                    <div class="contact-socials">
+                        <a href="http://www.linkedin.com/in/simon-d-thought-distillation-and-content-writing" target="_blank">LinkedIn</a>
+                        <a href="https://theconstructionindustrywriter.substack.com/" target="_blank">Substack</a>
+                    </div>
+                </div>
+                <div class="contact-cta">
+                    <a href="https://calendly.com/simon-custom-content/book-a-meeting" target="_blank" class="btn">Book a Consultation</a>
+                    <p>Free 30-minute call to discuss your project</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Custom Content. Built by <a href="https://bottbottgenai.com" target="_blank">BottBott</a>.</p>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Nav shadow on scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
